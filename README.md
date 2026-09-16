@@ -1,160 +1,242 @@
-<!DOCTYPE html>
+<!doctype.html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Presido Collections | Online Store</title>
+  <title>Presido Store | Fashion, Frames & More</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-blue: #0A2540;
-      --accent-blue: #1A4971;
-      --cream-bg: #FDFBF7;
-      --cream-card: #F5EFEB;
-      --text-dark: #2C3E50;
-      --white: #FFFFFF;
+      --accent-blue: #1E4F7C;
+      --light-blue: #E8F1F5;
+      --cream-bg: #FAF7F2;
+      --cream-card: #FFFFFF;
+      --text-dark: #1A202C;
+      --text-muted: #4A5568;
       --whatsapp-green: #25D366;
+      --whatsapp-hover: #20bd5a;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 25px -5px rgba(10, 37, 64, 0.1);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     body {
       background-color: var(--cream-bg);
       color: var(--text-dark);
+      line-height: 1.6;
     }
 
-    /* Header & Navigation */
+    /* Navigation */
     header {
       background-color: var(--primary-blue);
-      padding: 20px 5%;
+      padding: 18px 8%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
 
     .logo {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--cream-bg);
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     .logo span {
-      color: #90CAF9;
-      font-weight: 300;
+      color: #93C5FD;
+      font-weight: 400;
     }
 
-    .contact-btn {
+    .header-wa-btn {
       background-color: var(--whatsapp-green);
-      color: var(--white);
-      padding: 10px 18px;
-      border-radius: 20px;
+      color: #FFFFFF;
+      padding: 10px 20px;
+      border-radius: 30px;
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .header-wa-btn:hover {
+      background-color: var(--whatsapp-hover);
+      transform: translateY(-1px);
     }
 
     /* Hero Section */
     .hero {
-      background-color: var(--cream-card);
-      padding: 60px 5%;
+      background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-blue) 100%);
+      color: #FFFFFF;
+      padding: 80px 8% 100px;
       text-align: center;
-      border-bottom: 1px solid rgba(10, 37, 64, 0.08);
+      position: relative;
     }
 
     .hero h1 {
-      color: var(--primary-blue);
-      font-size: 36px;
-      margin-bottom: 15px;
+      font-size: 42px;
+      font-weight: 800;
+      margin-bottom: 18px;
+      line-height: 1.2;
     }
 
     .hero p {
       font-size: 18px;
-      max-width: 600px;
-      margin: 0 auto 25px;
-      color: var(--text-dark);
+      max-width: 650px;
+      margin: 0 auto 30px;
+      color: #E2E8F0;
+      font-weight: 400;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background-color: var(--cream-bg);
+      color: var(--primary-blue);
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-btn:hover {
+      background-color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 5%;
     }
 
     /* About Section */
-    .about-section {
-      padding: 40px 5%;
-      background-color: var(--white);
+    .about-card {
+      background: var(--cream-card);
+      margin-top: -50px;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
       text-align: center;
+      position: relative;
+      z-index: 10;
+      border: 1px solid rgba(10, 37, 64, 0.05);
     }
 
-    .about-section h2 {
+    .about-card h2 {
       color: var(--primary-blue);
-      margin-bottom: 15px;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
-    .about-section p {
-      max-width: 700px;
+    .about-card p {
+      color: var(--text-muted);
+      max-width: 750px;
       margin: 0 auto;
-      line-height: 1.6;
+      font-size: 16px;
     }
 
-    /* Products Grid */
-    .products-container {
-      padding: 50px 5%;
+    /* Products Section */
+    .products-section {
+      padding: 70px 0;
     }
 
     .section-title {
       text-align: center;
       color: var(--primary-blue);
-      font-size: 28px;
-      margin-bottom: 30px;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 40px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
     }
 
     .card {
       background-color: var(--cream-card);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      border: 1px solid rgba(10, 37, 64, 0.08);
-      box-shadow: 0 4px 12px rgba(10, 37, 64, 0.05);
-      transition: transform 0.2s;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(10, 37, 64, 0.06);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
 
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
     }
 
-    .card-icon {
-      font-size: 40px;
-      margin-bottom: 15px;
+    .card-img-wrapper {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      position: relative;
     }
 
-    .card h3 {
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover .card-img {
+      transform: scale(1.06);
+    }
+
+    .card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-title {
       color: var(--primary-blue);
+      font-size: 20px;
+      font-weight: 700;
       margin-bottom: 10px;
     }
 
-    .card p {
+    .card-desc {
+      color: var(--text-muted);
       font-size: 14px;
-      margin-bottom: 20px;
-      color: #555;
+      margin-bottom: 24px;
+      flex-grow: 1;
     }
 
     .order-btn {
-      display: inline-block;
+      display: block;
       width: 100%;
+      text-align: center;
       padding: 12px;
       background-color: var(--primary-blue);
-      color: var(--cream-bg);
+      color: #FFFFFF;
       text-decoration: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: 600;
+      font-size: 14px;
       transition: background-color 0.2s;
     }
 
@@ -167,18 +249,23 @@
       background-color: var(--primary-blue);
       color: var(--cream-bg);
       text-align: center;
-      padding: 30px 5%;
+      padding: 40px 5%;
       margin-top: 40px;
     }
 
     footer p {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      font-size: 15px;
     }
 
-    .whatsapp-link {
-      color: #90CAF9;
+    .wa-link {
+      color: #93C5FD;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
+    }
+
+    .wa-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -187,66 +274,86 @@
   <!-- Header -->
   <header>
     <div class="logo">PRESIDO <span>STORE</span></div>
-    <a href="https://wa.me/2348125255158" target="_blank" class="contact-btn">WhatsApp Us</a>
+    <a href="https://wa.me/2348125255158" target="_blank" class="header-wa-btn">
+      💬 Chat on WhatsApp
+    </a>
   </header>
 
-  <!-- Hero Banner -->
+  <!-- Hero Section -->
   <section class="hero">
-    <h1>Your One-Stop Shop for Everything Style & Gifts</h1>
-    <p>Quality fashion items, custom birthday frames, footwear, and general merchandise delivered to your doorstep.</p>
-    <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20make%20an%20inquiry" target="_blank" class="order-btn" style="width: auto; padding: 12px 30px;">Chat on WhatsApp</a>
+    <h1>Quality Fashion & Unique Gifts</h1>
+    <p>Discover top-tier clothing, footwear, and personalized birthday frames designed for your special moments.</p>
+    <a href="https://wa.me/2348125255158?text=Hello%20Presido%20Store,%20I%20want%20to%20make%20an%20inquiry" target="_blank" class="hero-btn">Start Shopping Now</a>
   </section>
 
-  <!-- About Section -->
-  <section class="about-section">
-    <h2>About Us</h2>
-    <p>We deal in all kinds of general merchandise! From trendy clothing and comfortable shoes to customized birthday frames and special gifts. We bring quality directly to you at affordable prices.</p>
-  </section>
-
-  <!-- Products Section -->
-  <section class="products-container">
-    <h2 class="section-title">Our Categories</h2>
-    <div class="grid">
-      
-      <!-- Clothing -->
-      <div class="card">
-        <div class="card-icon">👗</div>
-        <h3>Quality Clothing</h3>
-        <p>Trendy outfits, corporate wear, casual clothes, and stylish fashion items for all occasions.</p>
-        <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20buy%20Clothes" target="_blank" class="order-btn">Order via WhatsApp</a>
-      </div>
-
-      <!-- Shoes -->
-      <div class="card">
-        <div class="card-icon">👟</div>
-        <h3>Shoes & Footwear</h3>
-        <p>Sneakers, heels, sandals, and formal shoes built for comfort and durability.</p>
-        <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20buy%20Shoes" target="_blank" class="order-btn">Order via WhatsApp</a>
-      </div>
-
-      <!-- Birthday Frames -->
-      <div class="card">
-        <div class="card-icon">🖼️</div>
-        <h3>Birthday & Photo Frames</h3>
-        <p>Customized picture frames, birthday design frames, and memorable photo gifts.</p>
-        <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20order%20a%20Birthday%20Frame" target="_blank" class="order-btn">Order via WhatsApp</a>
-      </div>
-
-      <!-- General Items -->
-      <div class="card">
-        <div class="card-icon">🛍️</div>
-        <h3>General Merchandise</h3>
-        <p>Looking for something specific? Contact us directly to place custom orders.</p>
-        <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20inquire%20about%20your%20products" target="_blank" class="order-btn">Order via WhatsApp</a>
-      </div>
-
+  <div class="container">
+    <!-- About Card -->
+    <div class="about-card">
+      <h2>Welcome to Presido Store</h2>
+      <p>We supply general merchandise across high-demand categories! Whether you are looking for stylish outfits, long-lasting footwear, or customized picture frames for birthdays and events, we deliver value directly to your location.</p>
     </div>
-  </section>
+
+    <!-- Product Grid -->
+    <section class="products-section">
+      <h2 class="section-title">Explore Categories</h2>
+      <div class="grid">
+        
+        <!-- Fashion Category -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=600&q=80" alt="Clothing Category" class="card-img">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Trendy Clothing</h3>
+            <p class="card-desc">Quality outfits, corporate attire, hoodies, and casual fashion items tailored to keep you looking sharp.</p>
+            <a href="https://wa.me/2348125255158?text=Hello%20Presido%20Store,%20I%20am%20interested%20in%20buying%20Clothes" target="_blank" class="order-btn">Order via WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- Footwear Category -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" alt="Shoes Category" class="card-img">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Shoes & Footwear</h3>
+            <p class="card-desc">Stylish sneakers, corporate leather shoes, sliders, and sandals for comfort and long-lasting wear.</p>
+            <a href="https://wa.me/2348125255158?text=Hello%20Presido%20Store,%20I%20am%20interested%20in%20buying%20Shoes" target="_blank" class="order-btn">Order via WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- Birthday Frames Category -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80" alt="Birthday Frame Category" class="card-img">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Birthday & Picture Frames</h3>
+            <p class="card-desc">Custom photo frames, birthday portrait designs, and memorable frame gifts crafted with care.</p>
+            <a href="https://wa.me/2348125255158?text=Hello%20Presido%20Store,%20I%20want%20to%20order%20a%20Birthday%20Frame" target="_blank" class="order-btn">Order via WhatsApp</a>
+          </div>
+        </div>
+
+        <!-- General Merchandise Category -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=600&q=80" alt="General Goods Category" class="card-img">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">General Merchandise</h3>
+            <p class="card-desc">Searching for a specific product? Contact us directly to make inquiries or place special orders.</p>
+            <a href="https://wa.me/2348125255158?text=Hello%20Presido%20Store,%20I%20have%20an%20inquiry%20about%20your%20products" target="_blank" class="order-btn">Order via WhatsApp</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
 
   <!-- Footer -->
   <footer>
-    <p><strong>Presido Store</strong> — Quality & Reliability Guaranteed</p>
-    <p>Phone / WhatsApp: <a href="https://wa.me/2348125255158" class="whatsapp-link">08125255158</a></p>
+    <p><strong>Presido Store</strong> — Quality & Reliability Delivered</p>
+    <p>Phone / WhatsApp: <a href="https://wa.me/2348125255158" class="wa-link">08125255158</a></p>
   </footer>
 
 </body>

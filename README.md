@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presido Bank - Login</title>
   <style>
     :root {
@@ -75,6 +75,7 @@
     }
 
     input[type="text"],
+    input[type="email"],
     input[type="password"] {
       width: 100%;
       padding: 12px;
@@ -89,6 +90,26 @@
 
     input:focus {
       border-color: var(--primary-blue);
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .link-btn {
+      color: var(--accent-blue);
+      font-size: 13px;
+      text-decoration: none;
+      font-weight: 600;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .link-btn:hover {
+      text-decoration: underline;
     }
 
     .login-btn {
@@ -108,16 +129,55 @@
       background-color: var(--accent-blue);
     }
 
+    .signup-text {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-dark);
+    }
+
     #message {
       margin-top: 15px;
       text-align: center;
       font-size: 14px;
       font-weight: 600;
     }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 37, 64, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: var(--cream-card);
+      padding: 30px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 380px;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--primary-blue);
+    }
   </style>
 </head>
 <body>
 
+  <!-- Main Login Card -->
   <div class="login-container">
     <div class="logo-container">
       <div class="logo">PRESIDO <span>BANK</span></div>
@@ -127,47 +187,118 @@
     <form id="loginForm">
       <div class="form-group">
         <label for="username">Username / Account ID</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" required>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="link-btn" id="openForgot">Forgot Password?</button>
       </div>
 
       <button type="submit" class="login-btn">Log In</button>
     </form>
 
+    <p class="signup-text">Don't have an account? <button class="link-btn" id="openSignup">Sign Up</button></p>
     <div id="message"></div>
   </div>
 
+  <!-- Forgot Password Modal -->
+  <div class="modal" id="forgotModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeForgot">&times;</span>
+      <h3 style="color: var(--primary-blue); margin-bottom: 15px;">Reset Password</h3>
+      <form id="forgotForm">
+        <div class="form-group">
+          <label for="forgotEmail">Email Address</label>
+          <input type="email" id="forgotEmail" required>
+        </div>
+        <button type="submit" class="login-btn">Send Reset Link</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div class="modal" id="signupModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeSignup">&times;</span>
+      <h3 style="color: var(--primary-blue); margin-bottom: 15px;">Create Account</h3>
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="signupUser">Username</label>
+          <input type="text" id="signupUser" required>
+        </div>
+        <div class="form-group">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="signupPass">Password</label>
+          <input type="password" id="signupPass" required>
+        </div>
+        <button type="submit" class="login-btn">Register</button>
+      </form>
+    </div>
+  </div>
+
   <script>
+    const forgotModal = document.getElementById('forgotModal');
+    const signupModal = document.getElementById('signupModal');
+    const messageDiv = document.getElementById('message');
+
+    // Modal controls
+    document.getElementById('openForgot').onclick = () => forgotModal.style.display = 'flex';
+    document.getElementById('closeForgot').onclick = () => forgotModal.style.display = 'none';
+    document.getElementById('openSignup').onclick = () => signupModal.style.display = 'flex';
+    document.getElementById('closeSignup').onclick = () => signupModal.style.display = 'none';
+
+    // Login Request
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const messageDiv = document.getElementById('message');
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value
+        })
+      });
+      const data = await response.json();
+      messageDiv.style.color = response.ok ? '#1b5e20' : '#b71c1c';
+      messageDiv.textContent = data.message;
+    });
 
-      try {
-        const response = await fetch('http://localhost:3000/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        });
+    // Forgot Password Request
+    document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const response = await fetch('http://localhost:3000/api/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: document.getElementById('forgotEmail').value })
+      });
+      const data = await response.json();
+      alert(data.message);
+      forgotModal.style.display = 'none';
+    });
 
-        const result = await response.json();
-
-        if (response.ok) {
-          messageDiv.style.color = '#1b5e20';
-          messageDiv.textContent = result.message;
-        } else {
-          messageDiv.style.color = '#b71c1c';
-          messageDiv.textContent = result.message;
-        }
-      } catch (err) {
-        messageDiv.style.color = '#b71c1c';
-        messageDiv.textContent = 'Server connection failed.';
-      }
+    // Sign Up Request
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const response = await fetch('http://localhost:3000/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('signupUser').value,
+          email: document.getElementById('signupEmail').value,
+          password: document.getElementById('signupPass').value
+        })
+      });
+      const data = await response.json();
+      alert(data.message);
+      if (response.ok) signupModal.style.display = 'none';
     });
   </script>
 </body>

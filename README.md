@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Presido Bank - Login</title>
+  <title>Presido Collections | Online Store</title>
   <style>
     :root {
       --primary-blue: #0A2540;
@@ -12,7 +12,7 @@
       --cream-card: #F5EFEB;
       --text-dark: #2C3E50;
       --white: #FFFFFF;
-      --success-green: #2E7D32;
+      --whatsapp-green: #25D366;
     }
 
     * {
@@ -24,321 +24,230 @@
 
     body {
       background-color: var(--cream-bg);
+      color: var(--text-dark);
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: var(--primary-blue);
+      padding: 20px 5%;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      min-height: 100vh;
-    }
-
-    .login-container, .dashboard-container {
-      background-color: var(--cream-card);
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(10, 37, 64, 0.1);
-      width: 100%;
-      max-width: 400px;
-      border: 1px solid rgba(10, 37, 64, 0.08);
-    }
-
-    .dashboard-container {
-      display: none;
-      text-align: center;
-    }
-
-    .logo-container {
-      text-align: center;
-      margin-bottom: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .logo {
-      font-size: 32px;
+      font-size: 26px;
       font-weight: 800;
-      color: var(--primary-blue);
+      color: var(--cream-bg);
       letter-spacing: 1px;
     }
 
     .logo span {
-      color: var(--accent-blue);
+      color: #90CAF9;
       font-weight: 300;
     }
 
-    .subtitle {
-      color: var(--text-dark);
-      font-size: 14px;
-      margin-top: 4px;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--primary-blue);
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      border: 1.5px solid #D1C7BD;
-      border-radius: 6px;
-      background-color: var(--white);
-      color: var(--text-dark);
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input:focus {
-      border-color: var(--primary-blue);
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 20px;
-    }
-
-    .link-btn {
-      color: var(--accent-blue);
-      font-size: 13px;
+    .contact-btn {
+      background-color: var(--whatsapp-green);
+      color: var(--white);
+      padding: 10px 18px;
+      border-radius: 20px;
       text-decoration: none;
       font-weight: 600;
-      background: none;
-      border: none;
-      cursor: pointer;
+      font-size: 14px;
     }
 
-    .link-btn:hover {
-      text-decoration: underline;
+    /* Hero Section */
+    .hero {
+      background-color: var(--cream-card);
+      padding: 60px 5%;
+      text-align: center;
+      border-bottom: 1px solid rgba(10, 37, 64, 0.08);
     }
 
-    .login-btn {
+    .hero h1 {
+      color: var(--primary-blue);
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto 25px;
+      color: var(--text-dark);
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 40px 5%;
+      background-color: var(--white);
+      text-align: center;
+    }
+
+    .about-section h2 {
+      color: var(--primary-blue);
+      margin-bottom: 15px;
+    }
+
+    .about-section p {
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Products Grid */
+    .products-container {
+      padding: 50px 5%;
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--primary-blue);
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background-color: var(--cream-card);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid rgba(10, 37, 64, 0.08);
+      box-shadow: 0 4px 12px rgba(10, 37, 64, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: var(--primary-blue);
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    .order-btn {
+      display: inline-block;
       width: 100%;
       padding: 12px;
       background-color: var(--primary-blue);
       color: var(--cream-bg);
-      border: none;
+      text-decoration: none;
       border-radius: 6px;
-      font-size: 16px;
       font-weight: 600;
-      cursor: pointer;
       transition: background-color 0.2s;
     }
 
-    .login-btn:hover {
+    .order-btn:hover {
       background-color: var(--accent-blue);
     }
 
-    .signup-text {
+    /* Footer */
+    footer {
+      background-color: var(--primary-blue);
+      color: var(--cream-bg);
       text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-      color: var(--text-dark);
+      padding: 30px 5%;
+      margin-top: 40px;
     }
 
-    #message {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 14px;
+    footer p {
+      margin-bottom: 10px;
+    }
+
+    .whatsapp-link {
+      color: #90CAF9;
+      text-decoration: none;
       font-weight: 600;
-    }
-
-    /* Modal Styles */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(10, 37, 64, 0.5);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background-color: var(--cream-card);
-      padding: 30px;
-      border-radius: 12px;
-      width: 100%;
-      max-width: 380px;
-      position: relative;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      font-size: 20px;
-      cursor: pointer;
-      color: var(--primary-blue);
     }
   </style>
 </head>
 <body>
 
-  <!-- Main Login Card -->
-  <div class="login-container" id="loginCard">
-    <div class="logo-container">
-      <div class="logo">PRESIDO <span>BANK</span></div>
-      <p class="subtitle">Secure Online Banking</p>
-    </div>
+  <!-- Header -->
+  <header>
+    <div class="logo">PRESIDO <span>STORE</span></div>
+    <a href="https://wa.me/2348125255158" target="_blank" class="contact-btn">WhatsApp Us</a>
+  </header>
 
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="username">Username / Account ID</label>
-        <input type="text" id="username" placeholder="Type anything to login" required>
+  <!-- Hero Banner -->
+  <section class="hero">
+    <h1>Your One-Stop Shop for Everything Style & Gifts</h1>
+    <p>Quality fashion items, custom birthday frames, footwear, and general merchandise delivered to your doorstep.</p>
+    <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20make%20an%20inquiry" target="_blank" class="order-btn" style="width: auto; padding: 12px 30px;">Chat on WhatsApp</a>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <h2>About Us</h2>
+    <p>We deal in all kinds of general merchandise! From trendy clothing and comfortable shoes to customized birthday frames and special gifts. We bring quality directly to you at affordable prices.</p>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-container">
+    <h2 class="section-title">Our Categories</h2>
+    <div class="grid">
+      
+      <!-- Clothing -->
+      <div class="card">
+        <div class="card-icon">👗</div>
+        <h3>Quality Clothing</h3>
+        <p>Trendy outfits, corporate wear, casual clothes, and stylish fashion items for all occasions.</p>
+        <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20buy%20Clothes" target="_blank" class="order-btn">Order via WhatsApp</a>
       </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Type any password" required>
+      <!-- Shoes -->
+      <div class="card">
+        <div class="card-icon">👟</div>
+        <h3>Shoes & Footwear</h3>
+        <p>Sneakers, heels, sandals, and formal shoes built for comfort and durability.</p>
+        <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20buy%20Shoes" target="_blank" class="order-btn">Order via WhatsApp</a>
       </div>
 
-      <div class="form-actions">
-        <button type="button" class="link-btn" id="openForgot">Forgot Password?</button>
+      <!-- Birthday Frames -->
+      <div class="card">
+        <div class="card-icon">🖼️</div>
+        <h3>Birthday & Photo Frames</h3>
+        <p>Customized picture frames, birthday design frames, and memorable photo gifts.</p>
+        <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20order%20a%20Birthday%20Frame" target="_blank" class="order-btn">Order via WhatsApp</a>
       </div>
 
-      <button type="submit" class="login-btn">Log In</button>
-    </form>
+      <!-- General Items -->
+      <div class="card">
+        <div class="card-icon">🛍️</div>
+        <h3>General Merchandise</h3>
+        <p>Looking for something specific? Contact us directly to place custom orders.</p>
+        <a href="https://wa.me/2348125255158?text=Hello,%20I%20want%20to%20inquire%20about%20your%20products" target="_blank" class="order-btn">Order via WhatsApp</a>
+      </div>
 
-    <p class="signup-text">Don't have an account? <button class="link-btn" id="openSignup">Sign Up</button></p>
-    <div id="message"></div>
-  </div>
-
-  <!-- Fake Dashboard Card (Show on successful login/signup) -->
-  <div class="dashboard-container" id="dashboardCard">
-    <div class="logo">PRESIDO <span>BANK</span></div>
-    <h2 style="color: var(--primary-blue); margin: 20px 0 10px;">Welcome Back!</h2>
-    <p id="welcomeUser" style="color: var(--text-dark); font-size: 18px; margin-bottom: 20px;"></p>
-    <div style="background: var(--white); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-      <p style="color: #666; font-size: 12px;">Available Balance</p>
-      <h1 style="color: var(--success-green); font-size: 32px;">$250,000.00</h1>
     </div>
-    <button class="login-btn" onclick="location.reload()">Log Out</button>
-  </div>
+  </section>
 
-  <!-- Forgot Password Modal -->
-  <div class="modal" id="forgotModal">
-    <div class="modal-content">
-      <span class="close-btn" id="closeForgot">&times;</span>
-      <h3 style="color: var(--primary-blue); margin-bottom: 15px;">Reset Password</h3>
-      <form id="forgotForm">
-        <div class="form-group">
-          <label for="forgotEmail">Email Address</label>
-          <input type="email" id="forgotEmail" required>
-        </div>
-        <button type="submit" class="login-btn">Send Reset Link</button>
-      </form>
-    </div>
-  </div>
+  <!-- Footer -->
+  <footer>
+    <p><strong>Presido Store</strong> — Quality & Reliability Guaranteed</p>
+    <p>Phone / WhatsApp: <a href="https://wa.me/2348125255158" class="whatsapp-link">08125255158</a></p>
+  </footer>
 
-  <!-- Sign Up Modal -->
-  <div class="modal" id="signupModal">
-    <div class="modal-content">
-      <span class="close-btn" id="closeSignup">&times;</span>
-      <h3 style="color: var(--primary-blue); margin-bottom: 15px;">Create Account</h3>
-      <form id="signupForm">
-        <div class="form-group">
-          <label for="signupUser">Username</label>
-          <input type="text" id="signupUser" required>
-        </div>
-        <div class="form-group">
-          <label for="signupEmail">Email</label>
-          <input type="email" id="signupEmail" required>
-        </div>
-        <div class="form-group">
-          <label for="signupPass">Password</label>
-          <input type="password" id="signupPass" required>
-        </div>
-        <button type="submit" class="login-btn">Register</button>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    const forgotModal = document.getElementById('forgotModal');
-    const signupModal = document.getElementById('signupModal');
-    const loginCard = document.getElementById('loginCard');
-    const dashboardCard = document.getElementById('dashboardCard');
-    const welcomeUser = document.getElementById('welcomeUser');
-
-    // Modal controls
-    document.getElementById('openForgot').onclick = () => forgotModal.style.display = 'flex';
-    document.getElementById('closeForgot').onclick = () => forgotModal.style.display = 'none';
-    document.getElementById('openSignup').onclick = () => signupModal.style.display = 'flex';
-    document.getElementById('closeSignup').onclick = () => signupModal.style.display = 'none';
-
-    // Helper function to transition to dashboard
-    function showDashboard(username) {
-      loginCard.style.display = 'none';
-      dashboardCard.style.display = 'block';
-      welcomeUser.textContent = username;
-    }
-
-    // Fake Login Request
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-
-      try {
-        const response = await fetch('http://localhost:3000/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username: username,
-            password: document.getElementById('password').value
-          })
-        });
-        const data = await response.json();
-        if (response.ok) {
-          showDashboard(data.username);
-        }
-      } catch (err) {
-        // Fallback: If backend is not running, log in locally
-        showDashboard(username);
-      }
-    });
-
-    // Forgot Password Request
-    document.getElementById('forgotForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      alert(`Password reset link sent to ${document.getElementById('forgotEmail').value}!`);
-      forgotModal.style.display = 'none';
-    });
-
-    // Register / Sign Up Request
-    document.getElementById('signupForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('signupUser').value;
-
-      try {
-        const response = await fetch('http://localhost:3000/api/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username: username,
-            email: document.getElementById('signupEmail').value,
-            password: document.getElementById('signupPass').value
-          })
-        });
-        const data = await response.json();
-        alert(data.message);
-        signupModal.style.display = 'none';
-        showDashboard(data.username);
-      } catch (err) {
-        // Fallback: If backend is not running, register locally
-        alert('Account created successfully!');
-        signupModal.style.display = 'none';
-        showDashboard(username);
-      }
-    });
-  </script>
 </body>
 </html>

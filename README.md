@@ -12,6 +12,7 @@
       --cream-card: #F5EFEB;
       --text-dark: #2C3E50;
       --white: #FFFFFF;
+      --success-green: #2E7D32;
     }
 
     * {
@@ -29,7 +30,7 @@
       min-height: 100vh;
     }
 
-    .login-container {
+    .login-container, .dashboard-container {
       background-color: var(--cream-card);
       padding: 40px;
       border-radius: 12px;
@@ -37,6 +38,11 @@
       width: 100%;
       max-width: 400px;
       border: 1px solid rgba(10, 37, 64, 0.08);
+    }
+
+    .dashboard-container {
+      display: none;
+      text-align: center;
     }
 
     .logo-container {
@@ -178,7 +184,7 @@
 <body>
 
   <!-- Main Login Card -->
-  <div class="login-container">
+  <div class="login-container" id="loginCard">
     <div class="logo-container">
       <div class="logo">PRESIDO <span>BANK</span></div>
       <p class="subtitle">Secure Online Banking</p>
@@ -187,12 +193,12 @@
     <form id="loginForm">
       <div class="form-group">
         <label for="username">Username / Account ID</label>
-        <input type="text" id="username" required>
+        <input type="text" id="username" placeholder="Type anything to login" required>
       </div>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" required>
+        <input type="password" id="password" placeholder="Type any password" required>
       </div>
 
       <div class="form-actions">
@@ -204,6 +210,18 @@
 
     <p class="signup-text">Don't have an account? <button class="link-btn" id="openSignup">Sign Up</button></p>
     <div id="message"></div>
+  </div>
+
+  <!-- Fake Dashboard Card (Show on successful login/signup) -->
+  <div class="dashboard-container" id="dashboardCard">
+    <div class="logo">PRESIDO <span>BANK</span></div>
+    <h2 style="color: var(--primary-blue); margin: 20px 0 10px;">Welcome Back!</h2>
+    <p id="welcomeUser" style="color: var(--text-dark); font-size: 18px; margin-bottom: 20px;"></p>
+    <div style="background: var(--white); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+      <p style="color: #666; font-size: 12px;">Available Balance</p>
+      <h1 style="color: var(--success-green); font-size: 32px;">$250,000.00</h1>
+    </div>
+    <button class="login-btn" onclick="location.reload()">Log Out</button>
   </div>
 
   <!-- Forgot Password Modal -->
@@ -247,7 +265,9 @@
   <script>
     const forgotModal = document.getElementById('forgotModal');
     const signupModal = document.getElementById('signupModal');
-    const messageDiv = document.getElementById('message');
+    const loginCard = document.getElementById('loginCard');
+    const dashboardCard = document.getElementById('dashboardCard');
+    const welcomeUser = document.getElementById('welcomeUser');
 
     // Modal controls
     document.getElementById('openForgot').onclick = () => forgotModal.style.display = 'flex';
@@ -255,50 +275,69 @@
     document.getElementById('openSignup').onclick = () => signupModal.style.display = 'flex';
     document.getElementById('closeSignup').onclick = () => signupModal.style.display = 'none';
 
-    // Login Request
+    // Helper function to transition to dashboard
+    function showDashboard(username) {
+      loginCard.style.display = 'none';
+      dashboardCard.style.display = 'block';
+      welcomeUser.textContent = username;
+    }
+
+    // Fake Login Request
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const response = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: document.getElementById('username').value,
-          password: document.getElementById('password').value
-        })
-      });
-      const data = await response.json();
-      messageDiv.style.color = response.ok ? '#1b5e20' : '#b71c1c';
-      messageDiv.textContent = data.message;
+      const username = document.getElementById('username').value;
+
+      try {
+        const response = await fetch('http://localhost:3000/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: username,
+            password: document.getElementById('password').value
+          })
+        });
+        const data = await response.json();
+        if (response.ok) {
+          showDashboard(data.username);
+        }
+      } catch (err) {
+        // Fallback: If backend is not running, log in locally
+        showDashboard(username);
+      }
     });
 
     // Forgot Password Request
     document.getElementById('forgotForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const response = await fetch('http://localhost:3000/api/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: document.getElementById('forgotEmail').value })
-      });
-      const data = await response.json();
-      alert(data.message);
+      alert(`Password reset link sent to ${document.getElementById('forgotEmail').value}!`);
       forgotModal.style.display = 'none';
     });
 
-    // Sign Up Request
+    // Register / Sign Up Request
     document.getElementById('signupForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const response = await fetch('http://localhost:3000/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: document.getElementById('signupUser').value,
-          email: document.getElementById('signupEmail').value,
-          password: document.getElementById('signupPass').value
-        })
-      });
-      const data = await response.json();
-      alert(data.message);
-      if (response.ok) signupModal.style.display = 'none';
+      const username = document.getElementById('signupUser').value;
+
+      try {
+        const response = await fetch('http://localhost:3000/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: username,
+            email: document.getElementById('signupEmail').value,
+            password: document.getElementById('signupPass').value
+          })
+        });
+        const data = await response.json();
+        alert(data.message);
+        signupModal.style.display = 'none';
+        showDashboard(data.username);
+      } catch (err) {
+        // Fallback: If backend is not running, register locally
+        alert('Account created successfully!');
+        signupModal.style.display = 'none';
+        showDashboard(username);
+      }
     });
   </script>
 </body>
